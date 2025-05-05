@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบหัวใจและหลอดเลือด - สื่อการเรียนชีววิทยา</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0f9ff;
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .blood-flow {
+            animation: flow 3s linear infinite;
+        }
+        
+        @keyframes flow {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .quiz-timer {
+            transition: width 1s linear;
+        }
+        
+        .option-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-6">
+                <h1 class="text-3xl md:text-4xl font-bold text-center">ระบบหัวใจและหลอดเลือด</h1>
+                <p class="text-center text-blue-100 mt-2">สื่อการเรียนชีววิทยา สำหรับนักเรียนมัธยมปลาย</p>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <!-- Navigation Tabs -->
+            <div class="mb-8">
+                <div class="flex flex-wrap border-b border-gray-200">
+                    <button id="tab-learn" class="px-6 py-3 text-blue-600 font-medium border-b-2 border-blue-600">เนื้อหาการเรียนรู้</button>
+                    <button id="tab-quiz" class="px-6 py-3 text-gray-500 font-medium">เกมส์ทดสอบความรู้</button>
+                </div>
+            </div>
+            
+            <!-- Learning Content Section -->
+            <div id="content-learn" class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6">ระบบหัวใจและหลอดเลือดของมนุษย์</h2>
+                
+                <!-- Interactive Heart Diagram -->
+                <div class="flex flex-col md:flex-row items-center mb-10">
+                    <div class="w-full md:w-1/2 mb-6 md:mb-0">
+                        <svg viewBox="0 0 500 500" class="w-full max-w-md mx-auto heart-beat">
+                            <!-- Heart Outline -->
+                            <path d="M250,400 C250,400 120,300 120,200 C120,150 150,120 200,120 C230,120 250,150 250,150 C250,150 270,120 300,120 C350,120 380,150 380,200 C380,300 250,400 250,400 Z" 
+                                  fill="#f87171" stroke="#b91c1c" stroke-width="5"/>
+                            
+                            <!-- Left Atrium -->
+                            <path id="left-atrium" d="M200,180 C180,160 170,150 200,140 C230,130 250,150 250,150 C250,150 240,170 220,180 Z" 
+                                  fill="#fca5a5" stroke="#b91c1c" stroke-width="2"/>
+                            
+                            <!-- Right Atrium -->
+                            <path id="right-atrium" d="M300,180 C320,160 330,150 300,140 C270,130 250,150 250,150 C250,150 260,170 280,180 Z" 
+                                  fill="#fca5a5" stroke="#b91c1c" stroke-width="2"/>
+                            
+                            <!-- Left Ventricle -->
+                            <path id="left-ventricle" d="M220,180 C200,190 180,220 200,260 C220,300 250,320 250,320 C250,320 240,260 240,220 C240,200 230,190 220,180 Z" 
+                                  fill="#ef4444" stroke="#b91c1c" stroke-width="2"/>
+                            
+                            <!-- Right Ventricle -->
+                            <path id="right-ventricle" d="M280,180 C300,190 320,220 300,260 C280,300 250,320 250,320 C250,320 260,260 260,220 C260,200 270,190 280,180 Z" 
+                                  fill="#ef4444" stroke="#b91c1c" stroke-width="2"/>
+                            
+                            <!-- Aorta -->
+                            <path id="aorta" d="M220,150 C220,130 200,120 180,130 C160,140 150,160 140,180" 
+                                  fill="none" stroke="#dc2626" stroke-width="8" stroke-dasharray="40" class="blood-flow"/>
+                            
+                            <!-- Pulmonary Artery -->
+                            <path id="pulmonary-artery" d="M280,150 C280,130 300,120 320,130 C340,140 350,160 360,180" 
+                                  fill="none" stroke="#dc2626" stroke-width="8" stroke-dasharray="40" class="blood-flow"/>
+                            
+                            <!-- Pulmonary Vein -->
+                            <path id="pulmonary-vein" d="M180,200 C160,190 140,180 120,180" 
+                                  fill="none" stroke="#3b82f6" stroke-width="8" stroke-dasharray="40" class="blood-flow"/>
+                            
+                            <!-- Vena Cava -->
+                            <path id="vena-cava" d="M320,200 C340,190 360,180 380,180" 
+                                  fill="none" stroke="#3b82f6" stroke-width="8" stroke-dasharray="40" class="blood-flow"/>
+                        </svg>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pl-8">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-3">ส่วนประกอบของหัวใจ</h3>
+                        <ul class="space-y-3">
+                            <li id="info-left-atrium" class="p-3 bg-red-50 rounded-lg border border-red-200 cursor-pointer hover:bg-red-100 transition">
+                                <span class="font-medium text-red-700">หัวใจห้องบนซ้าย (Left Atrium)</span>: รับเลือดที่มีออกซิเจนจากปอดผ่านทางเส้นเลือดพัลโมนารี
+                            </li>
+                            <li id="info-right-atrium" class="p-3 bg-red-50 rounded-lg border border-red-200 cursor-pointer hover:bg-red-100 transition">
+                                <span class="font-medium text-red-700">หัวใจห้องบนขวา (Right Atrium)</span>: รับเลือดที่มีคาร์บอนไดออกไซด์จากร่างกายผ่านทางเส้นเลือดดำใหญ่
+                            </li>
+                            <li id="info-left-ventricle" class="p-3 bg-red-50 rounded-lg border border-red-200 cursor-pointer hover:bg-red-100 transition">
+                                <span class="font-medium text-red-700">หัวใจห้องล่างซ้าย (Left Ventricle)</span>: สูบฉีดเลือดที่มีออกซิเจนไปเลี้ยงส่วนต่างๆ ของร่างกายผ่านทางเส้นเลือดแดงใหญ่
+                            </li>
+                            <li id="info-right-ventricle" class="p-3 bg-red-50 rounded-lg border border-red-200 cursor-pointer hover:bg-red-100 transition">
+                                <span class="font-medium text-red-700">หัวใจห้องล่างขวา (Right Ventricle)</span>: สูบฉีดเลือดที่มีคาร์บอนไดออกไซด์ไปยังปอดเพื่อแลกเปลี่ยนก๊าซ
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Circulatory System Information -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4">วงจรการไหลเวียนของเลือด</h3>
+                    <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                                <h4 class="font-medium text-blue-800 mb-2">วงจรการไหลเวียนเลือดใหญ่ (Systemic Circulation)</h4>
+                                <ol class="list-decimal list-inside space-y-2 text-blue-700">
+                                    <li>เลือดที่มีออกซิเจนจากหัวใจห้องล่างซ้ายถูกสูบฉีดออกไปตามเส้นเลือดแดงใหญ่ (Aorta)</li>
+                                    <li>เลือดไหลไปตามเส้นเลือดแดงไปยังอวัยวะต่างๆ ทั่วร่างกาย</li>
+                                    <li>ออกซิเจนและสารอาหารถูกส่งไปยังเซลล์ต่างๆ</li>
+                                    <li>เลือดที่มีคาร์บอนไดออกไซด์ไหลกลับมาตามเส้นเลือดดำ</li>
+                                    <li>เลือดกลับเข้าสู่หัวใจห้องบนขวาผ่านทางเส้นเลือดดำใหญ่ (Vena Cava)</li>
+                                </ol>
+                            </div>
+                            <div class="w-full md:w-1/2 md:pl-6 md:border-l border-blue-200">
+                                <h4 class="font-medium text-blue-800 mb-2">วงจรการไหลเวียนเลือดเล็ก (Pulmonary Circulation)</h4>
+                                <ol class="list-decimal list-inside space-y-2 text-blue-700">
+                                    <li>เลือดที่มีคาร์บอนไดออกไซด์จากหัวใจห้องล่างขวาถูกสูบฉีดไปยังปอดผ่านเส้นเลือดพัลโมนารี</li>
+                                    <li>ที่ปอด เลือดปล่อยคาร์บอนไดออกไซด์และรับออกซิเจน</li>
+                                    <li>เลือดที่มีออกซิเจนไหลกลับเข้าสู่หัวใจห้องบนซ้ายผ่านเส้นเลือดพัลโมนารี</li>
+                                    <li>เลือดไหลจากหัวใจห้องบนซ้ายไปยังห้องล่างซ้าย</li>
+                                    <li>วงจรเริ่มต้นใหม่</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blood Vessels Types -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4">ประเภทของหลอดเลือด</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-red-50 p-5 rounded-lg border border-red-200">
+                            <h4 class="font-medium text-red-700 mb-2">เส้นเลือดแดง (Arteries)</h4>
+                            <p>นำเลือดออกจากหัวใจไปยังส่วนต่างๆ ของร่างกาย มีผนังหนาและยืดหยุ่น สามารถทนต่อแรงดันเลือดสูงได้</p>
+                            <div class="mt-3 h-20 bg-gradient-to-r from-red-300 to-red-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold">เส้นเลือดแดง</span>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                            <h4 class="font-medium text-purple-700 mb-2">เส้นเลือดฝอย (Capillaries)</h4>
+                            <p>เส้นเลือดขนาดเล็กที่เชื่อมระหว่างเส้นเลือดแดงและเส้นเลือดดำ เป็นบริเวณที่มีการแลกเปลี่ยนสารระหว่างเลือดกับเนื้อเยื่อ</p>
+                            <div class="mt-3 h-20 bg-gradient-to-r from-purple-300 to-purple-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold">เส้นเลือดฝอย</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
+                            <h4 class="font-medium text-blue-700 mb-2">เส้นเลือดดำ (Veins)</h4>
+                            <p>นำเลือดกลับสู่หัวใจ มีผนังบางกว่าเส้นเลือดแดง มีลิ้นภายในเพื่อป้องกันเลือดไหลย้อนกลับ</p>
+                            <div class="mt-3 h-20 bg-gradient-to-r from-blue-300 to-blue-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold">เส้นเลือดดำ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Heart Function -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4">การทำงานของหัวใจ</h3>
+                    <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-200">
+                        <h4 class="font-medium text-yellow-800 mb-2">วัฏจักรการเต้นของหัวใจ</h4>
+                        <div class="flex flex-col md:flex-row">
+                            <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li><span class="font-medium">Systole (การบีบตัว)</span>: หัวใจห้องล่างบีบตัวเพื่อสูบฉีดเลือดออกจากหัวใจ</li>
+                                    <li><span class="font-medium">Diastole (การคลายตัว)</span>: หัวใจห้องล่างคลายตัวและเติมเลือดจากห้องบน</li>
+                                    <li><span class="font-medium">ความดันเลือด</span>: วัดเป็น Systolic/Diastolic (เช่น 120/80 mmHg)</li>
+                                </ol>
+                            </div>
+                            <div class="w-full md:w-1/2 md:pl-6 md:border-l border-yellow-200">
+                                <h5 class="font-medium mb-2">ลิ้นหัวใจ</h5>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><span class="font-medium">ลิ้นไมตรัล (Mitral Valve)</span>: ระหว่างหัวใจห้องบนซ้ายและห้องล่างซ้าย</li>
+                                    <li><span class="font-medium">ลิ้นไตรคัสปิด (Tricuspid Valve)</span>: ระหว่างหัวใจห้องบนขวาและห้องล่างขวา</li>
+                                    <li><span class="font-medium">ลิ้นเอออร์ติก (Aortic Valve)</span>: ระหว่างหัวใจห้องล่างซ้ายและเส้นเลือดแดงใหญ่</li>
+                                    <li><span class="font-medium">ลิ้นพัลโมนารี (Pulmonary Valve)</span>: ระหว่างหัวใจห้องล่างขวาและเส้นเลือดพัลโมนารี</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quiz Game Section -->
+            <div id="content-quiz" class="bg-white rounded-lg shadow-md p-6 hidden">
+                <div id="quiz-intro">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4">เกมส์ทดสอบความรู้: ระบบหัวใจและหลอดเลือด</h2>
+                    <p class="mb-6">ทดสอบความรู้ของคุณเกี่ยวกับระบบหัวใจและหลอดเลือด! เกมส์นี้มีทั้งหมด 20 ข้อ แต่ละข้อมีเวลา 5 นาที</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-6">
+                        <h3 class="text-lg font-semibold text-blue-700 mb-3">กติกา:</h3>
+                        <ul class="list-disc list-inside space-y-2 text-blue-600">
+                            <li>แต่ละข้อมีเวลาทำ 5 นาที</li>
+                            <li>คุณจะได้คะแนนเมื่อตอบถูก</li>
+                            <li>ไม่มีการหักคะแนนเมื่อตอบผิด</li>
+                            <li>คุณสามารถดูผลคะแนนเมื่อทำครบทุกข้อ</li>
+                        </ul>
+                    </div>
+                    
+                    <button id="start-quiz" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        เริ่มเกมส์ทดสอบความรู้
+                    </button>
+                </div>
+                
+                <div id="quiz-container" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-blue-800">ข้อที่ <span id="question-number">1</span>/20</h3>
+                        <div class="flex items-center">
+                            <span class="mr-2 font-medium">เวลา:</span>
+                            <span id="timer" class="bg-blue-100 text-blue-800 py-1 px-3 rounded-md font-medium">5:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="timer-bar" class="quiz-timer bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="question-container" class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-6">
+                        <p id="question-text" class="text-lg font-medium mb-2">คำถามจะปรากฏที่นี่</p>
+                    </div>
+                    
+                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <!-- Options will be inserted here -->
+                    </div>
+                    
+                    <div id="feedback-container" class="hidden mb-6 p-4 rounded-lg">
+                        <p id="feedback-text" class="text-lg font-medium"></p>
+                    </div>
+                    
+                    <button id="next-question" class="hidden bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
+                        ข้อถัดไป
+                    </button>
+                </div>
+                
+                <div id="quiz-results" class="hidden">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4">ผลการทดสอบ</h2>
+                    
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-6">
+                        <div class="flex flex-col items-center mb-6">
+                            <div id="score-circle" class="w-32 h-32 rounded-full flex items-center justify-center mb-4 bg-blue-100 border-4 border-blue-500">
+                                <div class="text-center">
+                                    <span id="final-score" class="block text-3xl font-bold text-blue-800">0</span>
+                                    <span class="text-blue-600">คะแนน</span>
+                                </div>
+                            </div>
+                            <p class="text-lg font-medium">คุณตอบถูก <span id="correct-count">0</span> ข้อ จากทั้งหมด 20 ข้อ</p>
+                        </div>
+                        
+                        <div id="performance-message" class="text-center mb-6 p-4 rounded-lg bg-blue-100">
+                            <p class="text-lg font-medium text-blue-800">ข้อความแสดงผลการทำแบบทดสอบ</p>
+                        </div>
+                        
+                        <div class="flex justify-center">
+                            <button id="restart-quiz" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300 mr-4">
+                                เริ่มทำแบบทดสอบใหม่
+                            </button>
+                            <button id="review-material" class="bg-white border border-blue-600 hover:bg-blue-50 text-blue-600 font-medium py-2 px-6 rounded-lg transition duration-300">
+                                กลับไปทบทวนเนื้อหา
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="bg-blue-800 text-white py-6">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="mb-4 md:mb-0">พัฒนาโดย ฟ้าใส เด็กเรียน</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-blue-300 transition">เกี่ยวกับเรา</a>
+                        <a href="#" class="hover:text-blue-300 transition">ติดต่อ</a>
+                        <a href="#" class="hover:text-blue-300 transition">แหล่งข้อมูลเพิ่มเติม</a>
+                    </div>
+                </div>
+                <div class="mt-4 text-center text-blue-200 text-sm">
+                    &copy; 2023 สื่อการเรียนชีววิทยา - ระบบหัวใจและหลอดเลือด
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.getElementById('tab-learn').addEventListener('click', function() {
+            document.getElementById('tab-learn').classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            document.getElementById('tab-learn').classList.remove('text-gray-500');
+            document.getElementById('tab-quiz').classList.add('text-gray-500');
+            document.getElementById('tab-quiz').classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+            
+            document.getElementById('content-learn').classList.remove('hidden');
+            document.getElementById('content-quiz').classList.add('hidden');
+        });
+        
+        document.getElementById('tab-quiz').addEventListener('click', function() {
+            document.getElementById('tab-quiz').classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            document.getElementById('tab-quiz').classList.remove('text-gray-500');
+            document.getElementById('tab-learn').classList.add('text-gray-500');
+            document.getElementById('tab-learn').classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+            
+            document.getElementById('content-quiz').classList.remove('hidden');
+            document.getElementById('content-learn').classList.add('hidden');
+        });
+        
+        // Interactive heart diagram
+        const heartParts = ['left-atrium', 'right-atrium', 'left-ventricle', 'right-ventricle'];
+        
+        heartParts.forEach(part => {
+            const heartPart = document.getElementById(part);
+            const infoPart = document.getElementById('info-' + part);
+            
+            heartPart.addEventListener('mouseover', function() {
+                heartPart.setAttribute('fill', '#b91c1c');
+                infoPart.classList.add('bg-red-200');
+                infoPart.classList.remove('bg-red-50');
+            });
+            
+            heartPart.addEventListener('mouseout', function() {
+                heartPart.setAttribute('fill', part.includes('ventricle') ? '#ef4444' : '#fca5a5');
+                infoPart.classList.remove('bg-red-200');
+                infoPart.classList.add('bg-red-50');
+            });
+            
+            infoPart.addEventListener('mouseover', function() {
+                heartPart.setAttribute('fill', '#b91c1c');
+                infoPart.classList.add('bg-red-200');
+                infoPart.classList.remove('bg-red-50');
+            });
+            
+            infoPart.addEventListener('mouseout', function() {
+                heartPart.setAttribute('fill', part.includes('ventricle') ? '#ef4444' : '#fca5a5');
+                infoPart.classList.remove('bg-red-200');
+                infoPart.classList.add('bg-red-50');
+            });
+        });
+        
+        // Quiz functionality
+        const quizQuestions = [
+            {
+                question: "หัวใจของมนุษย์มีกี่ห้อง?",
+                options: ["2 ห้อง", "3 ห้อง", "4 ห้อง", "5 ห้อง"],
+                correctAnswer: 2
+            },
+            {
+                question: "เลือดที่มีออกซิเจนสูงจะอยู่ในห้องใดของหัวใจ?",
+                options: ["หัวใจห้องบนซ้าย", "หัวใจห้องบนขวา", "หัวใจห้องล่างซ้าย", "หัวใจห้องล่างขวา"],
+                correctAnswer: 0
+            },
+            {
+                question: "เส้นเลือดชนิดใดนำเลือดออกจากหัวใจ?",
+                options: ["เส้นเลือดดำ", "เส้นเลือดแดง", "เส้นเลือดฝอย", "เส้นเลือดลิมฟ์"],
+                correctAnswer: 1
+            },
+            {
+                question: "ลิ้นหัวใจมีหน้าที่อะไร?",
+                options: ["กรองเลือด", "ป้องกันเลือดไหลย้อนกลับ", "ผลิตเม็ดเลือด", "ควบคุมอัตราการเต้นของหัวใจ"],
+                correctAnswer: 1
+            },
+            {
+                question: "เส้นเลือดแดงใหญ่ที่นำเลือดออกจากหัวใจห้องล่างซ้ายเรียกว่าอะไร?",
+                options: ["เวนาคาวา", "พัลโมนารี อาร์เทอรี", "เอออร์ตา", "คาโรทิด อาร์เทอรี"],
+                correctAnswer: 2
+            },
+            {
+                question: "การบีบตัวของหัวใจเรียกว่าอะไร?",
+                options: ["Systole", "Diastole", "Cardiac cycle", "Pulse"],
+                correctAnswer: 0
+            },
+            {
+                question: "เส้นเลือดชนิดใดมีผนังบางที่สุด?",
+                options: ["เส้นเลือดแดง", "เส้นเลือดดำ", "เส้นเลือดฝอย", "เส้นเลือดลิมฟ์"],
+                correctAnswer: 2
+            },
+            {
+                question: "ความดันเลือดปกติของผู้ใหญ่คือเท่าใด?",
+                options: ["90/60 mmHg", "120/80 mmHg", "150/100 mmHg", "180/120 mmHg"],
+                correctAnswer: 1
+            },
+            {
+                question: "หัวใจของมนุษย์อยู่ในตำแหน่งใดของร่างกาย?",
+                options: ["ด้านซ้ายของทรวงอก", "ตรงกลางทรวงอก", "ด้านขวาของทรวงอก", "ใต้กระดูกหน้าอก เอียงไปทางซ้ายเล็กน้อย"],
+                correctAnswer: 3
+            },
+            {
+                question: "เซลล์เม็ดเลือดแดงมีหน้าที่หลักคืออะไร?",
+                options: ["ต่อสู้กับเชื้อโรค", "ช่วยในการแข็งตัวของเลือด", "ลำเลียงออกซิเจน", "สร้างภูมิคุ้มกัน"],
+                correctAnswer: 2
+            },
+            {
+                question: "วงจรการไหลเวียนเลือดที่นำเลือดจากหัวใจไปปอดและกลับมาที่หัวใจเรียกว่าอะไร?",
+                options: ["Systemic circulation", "Pulmonary circulation", "Coronary circulation", "Portal circulation"],
+                correctAnswer: 1
+            },
+            {
+                question: "เส้นเลือดชนิดใดมีลิ้นเพื่อป้องกันเลือดไหลย้อนกลับ?",
+                options: ["เส้นเลือดแดง", "เส้นเลือดดำ", "เส้นเลือดฝอย", "ทั้งเส้นเลือดแดงและเส้นเลือดดำ"],
+                correctAnswer: 1
+            },
+            {
+                question: "ชีพจรคืออะไร?",
+                options: ["การบีบตัวของหัวใจ", "การคลายตัวของหัวใจ", "คลื่นแรงดันที่เกิดจากการบีบตัวของหัวใจที่สามารถรู้สึกได้ที่เส้นเลือดแดง", "อัตราการไหลของเลือดในเส้นเลือดฝอย"],
+                correctAnswer: 2
+            },
+            {
+                question: "เนื้อเยื่อที่ห่อหุ้มหัวใจเรียกว่าอะไร?",
+                options: ["Epicardium", "Myocardium", "Endocardium", "Pericardium"],
+                correctAnswer: 3
+            },
+            {
+                question: "ส่วนใดของหัวใจที่ทำหน้าที่เป็นตัวกำหนดจังหวะการเต้นของหัวใจ?",
+                options: ["SA node", "AV node", "Bundle of His", "Purkinje fibers"],
+                correctAnswer: 0
+            },
+            {
+                question: "เลือดที่มีคาร์บอนไดออกไซด์สูงจะมีสีอะไร?",
+                options: ["แดงสด", "แดงเข้ม", "น้ำเงิน", "ม่วง"],
+                correctAnswer: 1
+            },
+            {
+                question: "โรคใดเกิดจากการอุดตันของเส้นเลือดที่ไปเลี้ยงกล้ามเนื้อหัวใจ?",
+                options: ["โรคหลอดเลือดสมอง", "โรคความดันโลหิตสูง", "โรคกล้ามเนื้อหัวใจขาดเลือด", "โรคลิ้นหัวใจรั่ว"],
+                correctAnswer: 2
+            },
+            {
+                question: "ฮีโมโกลบินคืออะไร?",
+                options: ["โปรตีนในเม็ดเลือดขาว", "โปรตีนที่ช่วยในการแข็งตัวของเลือด", "โปรตีนในเม็ดเลือดแดงที่จับกับออกซิเจน", "เอนไซม์ที่ย่อยสลายไขมันในเลือด"],
+                correctAnswer: 2
+            },
+            {
+                question: "ปริมาณเลือดในร่างกายผู้ใหญ่โดยเฉลี่ยมีประมาณเท่าใด?",
+                options: ["2-3 ลิตร", "5-6 ลิตร", "8-10 ลิตร", "12-15 ลิตร"],
+                correctAnswer: 1
+            },
+            {
+                question: "การตรวจคลื่นไฟฟ้าหัวใจเรียกว่าอะไร?",
+                options: ["Echocardiogram", "Electrocardiogram (ECG/EKG)", "Angiogram", "Cardiac MRI"],
+                correctAnswer: 1
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 300; // 5 minutes in seconds
+        
+        document.getElementById('start-quiz').addEventListener('click', function() {
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            loadQuestion();
+            startTimer();
+        });
+        
+        document.getElementById('next-question').addEventListener('click', function() {
+            currentQuestion++;
+            if (currentQuestion < quizQuestions.length) {
+                loadQuestion();
+                resetTimer();
+                document.getElementById('feedback-container').classList.add('hidden');
+                this.classList.add('hidden');
+            } else {
+                showResults();
+            }
+        });
+        
+        document.getElementById('restart-quiz').addEventListener('click', function() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-results').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            loadQuestion();
+            resetTimer();
+        });
+        
+        document.getElementById('review-material').addEventListener('click', function() {
+            document.getElementById('quiz-results').classList.add('hidden');
+            document.getElementById('tab-learn').click();
+        });
+        
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestion];
+            document.getElementById('question-number').textContent = currentQuestion + 1;
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionButton = document.createElement('button');
+                optionButton.className = 'option-hover bg-white border border-blue-300 hover:border-blue-500 text-blue-800 font-medium py-4 px-6 rounded-lg transition duration-300 text-left';
+                optionButton.textContent = option;
+                optionButton.addEventListener('click', function() {
+                    checkAnswer(index);
+                });
+                optionsContainer.appendChild(optionButton);
+            });
+        }
+        
+        function checkAnswer(selectedIndex) {
+            clearInterval(timer);
+            const question = quizQuestions[currentQuestion];
+            const feedbackContainer = document.getElementById('feedback-container');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            if (selectedIndex === question.correctAnswer) {
+                score++;
+                feedbackContainer.classList.remove('bg-red-100');
+                feedbackContainer.classList.add('bg-green-100');
+                feedbackText.textContent = '✓ ถูกต้อง! คำตอบคือ ' + question.options[question.correctAnswer];
+            } else {
+                feedbackContainer.classList.remove('bg-green-100');
+                feedbackContainer.classList.add('bg-red-100');
+                feedbackText.textContent = '✗ ไม่ถูกต้อง คำตอบที่ถูกคือ ' + question.options[question.correctAnswer];
+            }
+            
+            feedbackContainer.classList.remove('hidden');
+            document.getElementById('next-question').classList.remove('hidden');
+            
+            // Disable all option buttons
+            const optionButtons = document.querySelectorAll('#options-container button');
+            optionButtons.forEach(button => {
+                button.disabled = true;
+                if (button.textContent === question.options[question.correctAnswer]) {
+                    button.classList.add('bg-green-100', 'border-green-500');
+                } else if (button.textContent === question.options[selectedIndex] && selectedIndex !== question.correctAnswer) {
+                    button.classList.add('bg-red-100', 'border-red-500');
+                }
+            });
+        }
+        
+        function startTimer() {
+            timer = setInterval(function() {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    checkAnswer(-1); // Incorrect answer if time runs out
+                }
+            }, 1000);
+        }
+        
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = 300; // Reset to 5 minutes
+            updateTimerDisplay();
+            startTimer();
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            
+            // Update timer bar
+            const percentage = (timeLeft / 300) * 100;
+            document.getElementById('timer-bar').style.width = `${percentage}%`;
+            
+            // Change color based on time left
+            if (timeLeft <= 60) { // Last minute
+                document.getElementById('timer-bar').classList.remove('bg-blue-600');
+                document.getElementById('timer-bar').classList.add('bg-red-600');
+            } else {
+                document.getElementById('timer-bar').classList.remove('bg-red-600');
+                document.getElementById('timer-bar').classList.add('bg-blue-600');
+            }
+        }
+        
+        function showResults() {
+            clearInterval(timer);
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-results').classList.remove('hidden');
+            
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('correct-count').textContent = score;
+            
+            const percentage = (score / quizQuestions.length) * 100;
+            const performanceMessage = document.getElementById('performance-message');
+            
+            if (percentage >= 80) {
+                performanceMessage.classList.add('bg-green-100');
+                performanceMessage.innerHTML = '<p class="text-lg font-medium text-green-800">ยอดเยี่ยม! คุณมีความเข้าใจเกี่ยวกับระบบหัวใจและหลอดเลือดเป็นอย่างดี</p>';
+                document.getElementById('score-circle').classList.add('border-green-500');
+            } else if (percentage >= 60) {
+                performanceMessage.classList.add('bg-blue-100');
+                performanceMessage.innerHTML = '<p class="text-lg font-medium text-blue-800">ดี! คุณมีความเข้าใจพื้นฐานเกี่ยวกับระบบหัวใจและหลอดเลือด</p>';
+                document.getElementById('score-circle').classList.add('border-blue-500');
+            } else {
+                performanceMessage.classList.add('bg-yellow-100');
+                performanceMessage.innerHTML = '<p class="text-lg font-medium text-yellow-800">คุณอาจต้องทบทวนเนื้อหาเพิ่มเติมเกี่ยวกับระบบหัวใจและหลอดเลือด</p>';
+                document.getElementById('score-circle').classList.add('border-yellow-500');
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b0600431b637dc',t:'MTc0NjQ0OTU0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
